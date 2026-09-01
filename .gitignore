@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Generated pipeline data
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.db
+data/cleaned/*.parquet
+data/curated/*.parquet
+data/curated/*.csv
+data/curated/partitioned/
+data/curated/pyspark_windows/
+data/stream/*.jsonl
+models/*.joblib
+reports/*.png
+reports/*.csv
+quality/validation_report.json
+
+# DVC cache
+.dvc/cache/

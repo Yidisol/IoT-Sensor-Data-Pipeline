@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  airflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/opt/iot_sensor_pipeline
+      - ./dags:/opt/airflow/dags
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+    command: >-
+      bash -c "airflow db migrate &&
+      airflow users create --username admin --password admin
+      --firstname IoT --lastname Admin --role Admin --email admin@example.com || true;
+      airflow scheduler & airflow webserver"

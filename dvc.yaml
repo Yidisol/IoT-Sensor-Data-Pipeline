@@ -1,0 +1,24 @@
+stages:
+  pipeline_outputs:
+    cmd: python run_pipeline.py --skip-spark --skip-dvc
+    deps:
+      - run_pipeline.py
+      - scripts/common.py
+      - scripts/extract_uci.py
+      - scripts/simulate_http_stream.py
+      - scripts/mqtt_stream.py
+      - scripts/load_raw.py
+      - scripts/clean_normalize.py
+      - scripts/feature_engineering_polars.py
+      - scripts/anomaly_detection.py
+      - quality/run_validation.py
+      - scripts/load_curated.py
+      - scripts/generate_reports.py
+      - requirements.txt
+    outs:
+      - data/raw/sensor_readings.parquet
+      - data/cleaned/sensor_readings_cleaned.parquet
+      - data/curated/final_ml_ready.parquet
+      - models/isolation_forest.joblib
+      - reports/anomaly_alerts.csv
+      - quality/validation_report.json
